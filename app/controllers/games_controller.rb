@@ -12,10 +12,11 @@ class GamesController < ApplicationController
         @result = JSON.parse(Net::HTTP.get(uri))
         @valid = validate(@answer,@grid)
         checkAndShow
+        # raise
     end
 
     def redirect
-        cookies[:score] = ''
+        session[:score] = ''
         redirect_to new_path
     end 
     private
@@ -24,10 +25,10 @@ class GamesController < ApplicationController
         if(@result["found"])
             if(!@valid)
                 @message= "Sorry but <strong>#{@answer}</strong> can't be built out of #{@grid.join(", ")}"
-                cookies[:score] = cookies[:score] ? cookies[:score].to_i : 0
+                session[:score] = session[:score] ? session[:score].to_i : 0
             else
                 @message= "Congratulation! <strong>#{@answer}</strong> is a valid english word"
-                cookies[:score] = cookies[:score] ? cookies[:score].to_i + @result["length"] : @result["length"]
+                session[:score] = session[:score] ? session[:score].to_i + @result["length"] : @result["length"]
             end
         else
             @message = @result["error"]
