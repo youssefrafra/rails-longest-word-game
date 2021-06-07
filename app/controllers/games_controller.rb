@@ -11,7 +11,7 @@ class GamesController < ApplicationController
         url = "https://wagon-dictionary.herokuapp.com/#{@answer}"
         uri = URI.parse(url)
         @result = JSON.parse(Net::HTTP.get(uri))
-        @valid = (@grid & @answer.upcase.split("")).length === @answer.split("").length
+        @valid = validate(@answer,@grid)
         if(@result["found"])
             if(!@valid)
                 @message= "Sorry but <strong>#{@answer}</strong> can't be built out of #{@grid.join(", ")}"
@@ -24,5 +24,14 @@ class GamesController < ApplicationController
             @message = @result["error"]
         end
         # raise
+    end
+
+    private
+
+    def validate(word, grid)
+        word.upcase.each_char do |letter|
+            return false unless word.upcase.scan(letter) === grid.join("").scan(letter)
+        end
+        return true
     end
 end

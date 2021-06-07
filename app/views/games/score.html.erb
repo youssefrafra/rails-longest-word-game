@@ -1,11 +1,6 @@
 <br/><br/><br/>
 <div class="container">
   <p><%= sanitize @message %></p>
-  <p>Your score is 
-    <%if(@result["found"] && @valid)%>
-      <%=cookies[:score]%>
-    <%else%><%=cookies[:score]%>
-    <%end%>
-  </p>
+  <p>Your score is <%=cookies[:score]%></p>
   <%= link_to "Try again", new_path %>
 </div>
