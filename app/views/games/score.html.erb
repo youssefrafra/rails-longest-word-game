@@ -1,6 +1,11 @@
 <br/><br/><br/>
 <div class="container">
-  <p><%= sanitize @message %></p>
-  <p>Your score is <%=cookies[:score]%></p>
-  <%= link_to "Try again", new_path %>
+  <div class="card w-75">
+  <div class="card-body">
+    <p class="card-text"><%= sanitize @message %></p>
+    <p class="card-text">Your score is <%=cookies[:score]%></p>
+    <%= link_to "Try again", new_path , class: "btn btn-info"%>
+    <%= link_to "New Game", redirect_path , class: "btn btn-dark"%>
+  </div>
+</div>
 </div>

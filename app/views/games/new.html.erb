@@ -1,13 +1,23 @@
 <div class="container">
 <h1>New Game</h1>
-<br/><br/>
-<% @letters.each do |letter| %>
-<button><%= letter %></button> 
-<% end%>
-<br/><br/>
+<br/>
+<div id ="grid">
+    <% @letters.each do |letter| %>
+        <button class="btn btn-outline-info"><%= letter %></button> 
+    <% end%>
+</div>
+<br/>
 <form action="score" method="POST">
-    <input type="text" name ="answer" placeholder="Type your answer...">
-    <input type="submit" value="Send">
+    <div class='input-group'>
+        <input type="text" name ="answer" placeholder="Type your answer..." id="input" class='form-control'>
+        <input type="submit" value="Send" class='btn btn-outline-secondary'>
+    </div>
     <input type="text" value="<%= @letters %>" name="grid" style="display:none;">
     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+</form>
+<br/>
+<div id="copy">
+</div>
+<br/><br/>
+<button id="reset"class="btn btn-danger">Reset</button>
 </div>

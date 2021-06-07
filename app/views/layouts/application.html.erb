@@ -12,5 +12,30 @@
 
   <body>
     <%= yield %>
+    <%if params['action'] === 'new' %>
+      <script>
+        const input = document.getElementById('input');
+        const grid = document.getElementById('grid');
+        const buttons = grid.querySelectorAll("button");
+        const copy = document.getElementById("copy");
+        const reset = document.getElementById("reset");
+
+        buttons.forEach((button) => {
+          button.addEventListener('click', () => {
+            input.value += button.innerText
+            button.setAttribute("disabled","");
+            copy.insertAdjacentElement('beforeend', button);
+          })
+        })
+        reset.addEventListener('click', () => {
+          let copy_buttons = copy.querySelectorAll("button");
+          copy_buttons.forEach(button => {
+            button.removeAttribute("disabled");
+            grid.insertAdjacentElement('afterbegin', button)
+            });
+          input.value = "";
+        })
+      </script>
+    <% end %>
   </body>
 </html>
